@@ -3,3 +3,8 @@ gunicorn
 python-dotenv
 whitenoise
 django-admin-soft-dashboard
+requests
+cachetools
+pandas
+numpy
+plotly

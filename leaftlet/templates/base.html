@@ -40,7 +40,21 @@
 			max-height: 100%;
 		}
 	</style>
-
+    <style>
+    .clickable {
+      cursor: pointer;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+    .clickable:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    @media (max-width: 767px) {
+      .rotate-on-small-screens {
+        transform: rotate(90deg);
+        padding-left: 20px;
+      };
+    }
+  </style>
 
 	<style>
         #map { width: 800px; height: 500px;
@@ -72,7 +86,6 @@
 
     {% block content %} {% endblock content %}
 
-    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{% static 'js/soft-ui-dashboard.min.js' %}"></script>

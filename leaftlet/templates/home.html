@@ -16,6 +16,11 @@
 <script type="text/javascript">
 
 	const map = L.map('map').setView([-23.6226, -46.5489], 9);
+    var marker = L.marker([-23.5604171, -46.6133841]).addTo(map);
+    marker.bindPopup('PRQ D PEDRO II, s/n - Sé')
+
+    var marker2 = L.marker([-23.642683,-46.4923609]).addTo(map);
+        marker2.bindPopup('R. Managua - Parque Capuava')
 
 	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
@@ -32,8 +37,11 @@
 	};
 
 	info.update = function (props) {
-		const contents = props ? `<b>${props.name}</b><br />${props.density} people / mi<sup>2</sup>` : 'Hover over a state';
-		this._div.innerHTML = `<h4>População</h4>${contents}`;
+		const contents = props ?
+            `<b>${props.name}</b>
+             <br />${props.Endereco}
+             <br />Índice poluentes: ${props.Indice}`: 'Hover over a state';
+		this._div.innerHTML = `<h4>Qualidade do Ar</h4>${contents}`;
 	};
 
 	info.addTo(map);
@@ -41,13 +49,11 @@
 
 	// get color depending on population density value
 	function getColor(d) {
-		return d > 1000 ? '#800026' :
-			d > 500  ? '#BD0026' :
-			d > 200  ? '#E31A1C' :
-			d > 100  ? '#FC4E2A' :
-			d > 50   ? '#FD8D3C' :
-			d > 20   ? '#FEB24C' :
-			d > 10   ? '#FED976' : '#FFEDA0';
+		return d > 200  ? '#990066' :
+			d > 120  ? '#ff0f03' :
+			d > 80   ? '#FFA22E' :
+			d > 40   ? '#ffff00' :
+			d > 0   ? '#00cc00' : '#FF4600';
 	}
 
 	function style(feature) {
@@ -57,7 +63,7 @@
 			color: 'white',
 			dashArray: '3',
 			fillOpacity: 0.7,
-			fillColor: getColor(feature.properties.density)
+			fillColor: getColor(feature.properties.Indice)
 		};
 	}
 
@@ -99,7 +105,7 @@
 		});
 	}
 
-	map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+	map.attributionControl.addAttribution('Population data &copy; <a href="https://cetesb.sp.gov.br/ar/poluentes/">Cetesb poluentes</a>');
 
 
 	const legend = L.control({position: 'bottomright'});
@@ -107,7 +113,7 @@
 	legend.onAdd = function (map) {
 
 		const div = L.DomUtil.create('div', 'info legend');
-		const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
+		const grades = [0, 40, 80, 120, 200];
 		const labels = [];
 		let from, to;
 

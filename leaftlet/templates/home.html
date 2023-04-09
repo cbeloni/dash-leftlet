@@ -113,12 +113,12 @@
 	legend.onAdd = function (map) {
 
 		const div = L.DomUtil.create('div', 'info legend');
-		const grades = [0, 40, 80, 120, 200];
+		const grades = [    0, 40, 80, 120, 200];
 		const labels = [];
 		let from, to;
 
 		for (let i = 0; i < grades.length; i++) {
-			from = grades[i];
+			from = grades[i]+1;
 			to = grades[i + 1];
 
 			labels.push(`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash;${to}` : '+'}`);

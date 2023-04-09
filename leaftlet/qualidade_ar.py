@@ -2,7 +2,19 @@ import requests
 from cachetools import cached, LRUCache, TTLCache
 import json
 from datetime import datetime
+from dataclasses import dataclass
+
+@dataclass
 class QualidadeAr:
+    nome: str
+    situacao_rede: str
+    tipo_rede: str
+    data: str
+    qualidade: str
+    endereco: str
+    indice: int
+    poluente: str
+    municipio: str
     def __init__(self, **kwargs):
         self.nome = kwargs.get('nome')
         self.situacao_rede = kwargs.get('situacao_rede')
@@ -12,6 +24,7 @@ class QualidadeAr:
         self.endereco = kwargs.get('endereco')
         self.indice = kwargs.get('indice')
         self.poluente = kwargs.get('poluente')
+        self.municipio = kwargs.get('municipio')
         
 class Detalhes:
     def __init__(self, nome, indice, data):
@@ -41,6 +54,7 @@ def _get_cetesb():
         endereco = feature['attributes']['Endereco']
         indice = feature['attributes']['Indice']
         poluente = feature['attributes']['POLUENTE']
+        municipio = feature['attributes']['Municipio']
 
         lista_qualidade_ar.append(QualidadeAr(nome=nome,
                                               situacao_rede=situacao_rede,
@@ -49,7 +63,8 @@ def _get_cetesb():
                                               qualidade=qualidade,
                                               endereco=endereco,
                                               indice=indice,
-                                              poluente=poluente))
+                                              poluente=poluente,
+                                              municipio=municipio))
 
 
     return lista_qualidade_ar

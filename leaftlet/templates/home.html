@@ -40,7 +40,7 @@
 		const contents = props ?
             `<b>${props.name}</b>
              <br />${props.Endereco}
-             <br />Índice poluentes: ${props.Indice}`: 'Hover over a state';
+             <br />Índice poluentes: ${props.Indice}`: 'selecione  município';
 		this._div.innerHTML = `<h4>Qualidade do Ar</h4>${contents}`;
 	};
 
@@ -105,7 +105,7 @@
 		});
 	}
 
-	map.attributionControl.addAttribution('Population data &copy; <a href="https://cetesb.sp.gov.br/ar/poluentes/">Cetesb poluentes</a>');
+	map.attributionControl.addAttribution('poluicao data &copy; <a href="https://cetesb.sp.gov.br/ar/poluentes/">Cetesb poluentes</a>');
 
 
 	const legend = L.control({position: 'bottomright'});

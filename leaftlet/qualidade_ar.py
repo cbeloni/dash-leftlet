@@ -3,12 +3,16 @@ from cachetools import cached, LRUCache, TTLCache
 import json
 from datetime import datetime
 class QualidadeAr:
-    def __init__(self, nome, situacao_rede, tipo_rede, data, qualidade):
-        self.nome = nome
-        self.situacao_rede = situacao_rede
-        self.tipo_rede = tipo_rede
-        self.data = data
-        self.qualidade = qualidade
+    def __init__(self, **kwargs):
+        self.nome = kwargs.get('nome')
+        self.situacao_rede = kwargs.get('situacao_rede')
+        self.tipo_rede = kwargs.get('tipo_rede')
+        self.data = kwargs.get('data')
+        self.qualidade = kwargs.get('qualidade')
+        self.endereco = kwargs.get('endereco')
+        self.indice = kwargs.get('indice')
+        self.poluente = kwargs.get('poluente')
+        
 class Detalhes:
     def __init__(self, nome, indice, data):
         self.nome = nome
@@ -34,7 +38,18 @@ def _get_cetesb():
         situacao_rede = feature['attributes']['Situacao_Rede']
         qualidade = feature['attributes']['Qualidade'] or 'Não coletado'
         tipo_rede = feature['attributes']['Tipo_Rede']
-        lista_qualidade_ar.append(QualidadeAr(nome=nome, situacao_rede=situacao_rede, tipo_rede=tipo_rede, data=data, qualidade=qualidade))
+        endereco = feature['attributes']['Endereco']
+        indice = feature['attributes']['Indice']
+        poluente = feature['attributes']['POLUENTE']
+
+        lista_qualidade_ar.append(QualidadeAr(nome=nome,
+                                              situacao_rede=situacao_rede,
+                                              tipo_rede=tipo_rede,
+                                              data=data,
+                                              qualidade=qualidade,
+                                              endereco=endereco,
+                                              indice=indice,
+                                              poluente=poluente))
 
 
     return lista_qualidade_ar

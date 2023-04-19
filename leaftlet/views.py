@@ -13,8 +13,7 @@ def home(request):
             matching_items = [item for item in lista_qualidade_ar if item.municipio.lower() == feature['properties']['Municipio'].lower() and item.indice is not None]
             feature['properties']['Indice'] = matching_items[0].indice if any(matching_items) else None
 
-    contexto = {"grande_sp_indices": json.dumps(grande_sp_indices),
-                "mapa_active": "active"}
+    contexto = {"grande_sp_indices": json.dumps(grande_sp_indices)}
 
     return render(request, 'home.html', contexto)
 
@@ -23,8 +22,7 @@ def dash(request):
     todos = listar_todos()
 
     contexto = {"lista_qualidade_ar": todos,
-                "detalhes": detalhes,
-                "dash_active": "active"}
+                "detalhes": detalhes}
 
     return render(request, 'dash.html', contexto)
 

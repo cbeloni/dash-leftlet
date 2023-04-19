@@ -102,12 +102,12 @@
                      <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
                         <ul class="navbar-nav navbar-nav-hover ms-lg-12 ps-lg-5 w-100">
                            <li class="nav-item dropdown dropdown-hover mx-2">
-                              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center {{ mapa_active }}" href="/" id="dropdownMenuPages" aria-expanded="false">
+                              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center  {% if request.resolver_match.url_name == 'home' %} active {% endif %}" href="/" id="dropdownMenuPages" aria-expanded="false">
                                   Mapa
                               </a>
                            </li>
                            <li class="nav-item dropdown dropdown-hover mx-2">
-                              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center {{ dash_active }}" href="/dashboard" id="dropdownMenuBlocks" aria-expanded="false">
+                              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center {% if request.resolver_match.url_name == 'dash' %} active {% endif %}" href="/dashboard" id="dropdownMenuBlocks" aria-expanded="false">
                                 Dashboard
                               </a>
                            </li>

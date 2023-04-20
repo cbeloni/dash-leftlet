@@ -2,13 +2,10 @@
 {% load static %}
 {% block css %}
     <link href="./static/css/soft-ui.css" rel="stylesheet" />
-    <link href="./static/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="./static/css/nucleo-svg.css" rel="stylesheet" />
 {% endblock css %}
 {% block content %}
     <div class="container-fluid py-4">
       <div class="row">
-        <h6>Qualidade do ar agora</h6>
         {% for ar in lista_qualidade_ar %}
           <div class="col-xl-3 col-sm-6 mb-xl-2 mb-4">
           <div class="card clickable" onclick="clickEventCard('{{ ar.nome }}')">
@@ -16,22 +13,25 @@
               <div class="row">
                 <div class="col-8 ">
                   <div>
-                    <span class="text-mb mb-4 text-capitalize font-weight-bold"> {{ ar.nome }} </span>
 
-                    <h6 class="font-weight-bolder mb-0">
+                    <div class="typo-line">
+                        <h3>{{ ar.nome }}</h3>
+                    </div>
+
+                    <h6 class="">
                       {% if ar.qualidade == 'N1 - BOA' %}
-                          <span class="text-success text-sm font-weight-bolder">Qualidade do ar: {{ar.qualidade}}</span>
+                          <span class="text-success">Qualidade do ar: {{ar.qualidade}}</span>
                       {% else %}
-                          <span class="text-warning text-sm font-weight-bolder">Qualidade do ar: {{ar.qualidade}}</span>
+                          <span class="text-warning">Qualidade do ar: {{ar.qualidade}}</span>
                       {% endif %}
                     </h6>
                     <h6>
-                      <span class="text-sm text-capitalize font-weight-light">Data: {{ar.data}}</span>
+                      <span class="typo-line">Data: {{ar.data}}</span>
                     </h6>
-                    <div class="form-check" >
-                      <input class="form-check-input" type="checkbox" id="check_detalhes_{{ ar.nome }}" disabled>
-                      <label class="custom-control-label font-weight-light" for="check_detalhes_{{ ar.nome }}">Visualizar detalhes</label>
-                    </div>
+                  <div class="checkbox">
+                    <input id="check_detalhes_{{ ar.nome }}" type="checkbox">
+                    <label for="check_detalhes_{{ ar.nome }}">Visualizar detalhes</label>
+                  </div>
 
                   </div>
                 </div>

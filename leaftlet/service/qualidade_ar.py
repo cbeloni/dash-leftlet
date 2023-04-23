@@ -2,31 +2,9 @@ import requests
 from cachetools import cached, LRUCache, TTLCache
 import json
 from datetime import datetime
-from dataclasses import dataclass
+from ..models import QualidadeAr
 
-@dataclass
-class QualidadeAr:
-    nome: str
-    situacao_rede: str
-    tipo_rede: str
-    data: str
-    qualidade: str
-    endereco: str
-    indice: int
-    poluente: str
-    municipio: str
-    def __init__(self, **kwargs):
-        self.nome = kwargs.get('nome')
-        self.situacao_rede = kwargs.get('situacao_rede')
-        self.tipo_rede = kwargs.get('tipo_rede')
-        self.data = kwargs.get('data')
-        self.qualidade = kwargs.get('qualidade')
-        self.endereco = kwargs.get('endereco')
-        self.indice = kwargs.get('indice')
-        self.poluente = kwargs.get('poluente')
-        self.municipio = kwargs.get('municipio')
-        
-class Detalhes:
+class QualidadeArDetalhes:
     def __init__(self, nome, indice, data):
         self.nome = nome
         self.indice = indice
@@ -93,7 +71,7 @@ def _atribute_detalhes(data, nome):
     for i in range(count, 0, -2):
         valueIndice = data[keys[i]]
         valueData = datetime.fromtimestamp(data[keys[i + 1]] / 1000).strftime("%Y-%m-%d %Hh")
-        lista_detalhes.append(Detalhes(indice=valueIndice, data=valueData, nome=nome))
+        lista_detalhes.append(QualidadeArDetalhes(indice=valueIndice, data=valueData, nome=nome))
     return lista_detalhes
 
 if __name__ == '__main__':

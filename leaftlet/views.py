@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from .qualidade_ar import listar_todos, listar_detalhes
+from leaftlet.service.qualidade_ar import listar_todos, listar_detalhes
 import json
 
 def home(request):
     lista_qualidade_ar = listar_todos()
-    print(lista_qualidade_ar)
     with open('./static/js/grande-sp-pop.json', 'r') as f:
         grande_sp_indices = json.load(f)
 

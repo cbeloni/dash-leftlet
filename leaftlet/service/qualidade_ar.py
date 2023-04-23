@@ -43,6 +43,7 @@ def _get_cetesb():
 
     return lista_qualidade_ar
 
+@cached(cache=TTLCache(maxsize=1024, ttl=3600))
 def _listar_detalhes():
     url = "https://arcgis.cetesb.sp.gov.br/server/rest/services/QUALAR/CETESB_QUALAR/MapServer/0/query?f=json&where=1=1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*"
     #json_data = '{"M1": 2, "TM1": 1678550400000, "M2": 2, "TM2": 1678546800000, "M3": 2, "TM3": 1678543200000, "M4": 2, "TM4": 1678539600000, "M5": 2, "TM5": 1678536000000}'

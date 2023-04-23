@@ -28,15 +28,17 @@ def _get_cetesb():
         poluente = feature['attributes']['POLUENTE']
         municipio = feature['attributes']['Municipio']
 
-        lista_qualidade_ar.append(QualidadeAr(nome=nome,
-                                              situacao_rede=situacao_rede,
-                                              tipo_rede=tipo_rede,
-                                              data=data,
-                                              qualidade=qualidade,
-                                              endereco=endereco,
-                                              indice=indice,
-                                              poluente=poluente,
-                                              municipio=municipio))
+        qualidade_ar: QualidadeAr = QualidadeAr(nome=nome,
+                                                situacao_rede=situacao_rede,
+                                                tipo_rede=tipo_rede,
+                                                data=data,
+                                                qualidade=qualidade,
+                                                endereco=endereco,
+                                                indice=indice,
+                                                poluente=poluente,
+                                                municipio=municipio)
+        qualidade_ar.save()
+        lista_qualidade_ar.append(qualidade_ar)
 
 
     return lista_qualidade_ar
@@ -65,7 +67,9 @@ def _atribute_detalhes(data, nome):
     for i in range(count, 0, -2):
         valueIndice = data[keys[i]]
         valueData = datetime.fromtimestamp(data[keys[i + 1]] / 1000).strftime("%Y-%m-%d %Hh")
-        lista_detalhes.append(QualidadeArDetalhes(indice=valueIndice, data=valueData, nome=nome))
+        qualiadade_ar_detalhes = QualidadeArDetalhes(indice=valueIndice, data=valueData, nome=nome)
+        qualiadade_ar_detalhes.save()
+        lista_detalhes.append(qualiadade_ar_detalhes)
     return lista_detalhes
 
 if __name__ == '__main__':

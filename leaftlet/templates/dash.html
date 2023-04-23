@@ -5,6 +5,55 @@
 {% endblock css %}
 {% block content %}
     <div class="container-fluid py-4">
+    <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+
+                            <div class="header">
+                                <h4 class="title">Email Statistics</h4>
+                                <p class="category">Last Campaign Performance</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+                                <div class="footer">
+                                    <div class="legend">
+                                        <i class="fa fa-circle text-info"></i> Open
+                                        <i class="fa fa-circle text-danger"></i> Bounce
+                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Users Behavior</h4>
+                                <p class="category">24 Hours performance</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartHours" class="ct-chart"></div>
+                                <div class="footer">
+                                    <div class="legend">
+                                        <i class="fa fa-circle text-info"></i> Open
+                                        <i class="fa fa-circle text-danger"></i> Click
+                                        <i class="fa fa-circle text-warning"></i> Click Second Time
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-history"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
       <div class="row">
         {% for ar in lista_qualidade_ar %}
           <div class="col-xl-3 col-sm-6 mb-xl-2 mb-4">
@@ -68,31 +117,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Qualidade</th>
-              <td scope="col">N1 – Boa</td>
-              <td scope="col">N2 – Moderada</td>
-              <td scope="col">N3 – Ruim</td>
-              <td scope="col">N4 – Muito Ruim</td>
-              <td scope="col">N5 – Péssima</td>
-            </tr>
-          </thead>
-          <thead>
-            <tr>
-              <th scope="col">Índice</th>
-              <td scope="col">0 – 40</td>
-              <td scope="col">41 – 80</td>
-              <td scope="col">81 – 120</td>
-              <td scope="col">121 – 20</td>
-              <td scope="col">>200</td>
-            </tr>
-          </thead>
-          </tbody>
-        </table>
       </div>
     </div>
 {% endblock content %}
@@ -217,5 +241,8 @@
           }
         }
       });
+      $(document).ready(function(){
+        	demo.initChartist();
+    	})
   </script>
 {% endblock scripts %}

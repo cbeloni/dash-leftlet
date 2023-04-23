@@ -2,13 +2,7 @@ import requests
 from cachetools import cached, LRUCache, TTLCache
 import json
 from datetime import datetime
-from ..models import QualidadeAr
-
-class QualidadeArDetalhes:
-    def __init__(self, nome, indice, data):
-        self.nome = nome
-        self.indice = indice
-        self.data = data
+from ..models import QualidadeAr, QualidadeArDetalhes
 
 def listar_todos():
     lista_qualidade_ar2 = _get_cetesb()

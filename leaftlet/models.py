@@ -1,7 +1,6 @@
 from django.db import models
 from datetime import date
 
-
 class QualidadeAr(models.Model):
     class Meta:
         db_table = 'qualidade_ar'
@@ -17,4 +16,16 @@ class QualidadeAr(models.Model):
     municipio = models.CharField(max_length=255, null=True)
 
     def __str__(self):
-        return self.title
+        return str(vars(self))
+
+class QualidadeArDetalhes(models.Model):
+
+    class Meta:
+        db_table = 'qualidade_ar_detalhes'
+
+    nome = models.CharField(max_length=100)
+    indice = models.DecimalField(max_digits=5, decimal_places=2)
+    data = models.DateField()
+
+    def __str__(self):
+        return str(vars(self))

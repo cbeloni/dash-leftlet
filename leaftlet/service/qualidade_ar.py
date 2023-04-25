@@ -52,8 +52,6 @@ def _listar_detalhes():
 
     lista_completa_detalhes = []
     for f in features:
-        print (f['attributes']['ID'])
-        print(f['attributes']['STATNM'])
         nome = f['attributes']['STATNM']
         del f['attributes']['ID']
         del f['attributes']['STATNM']

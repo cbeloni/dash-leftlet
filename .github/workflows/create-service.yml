@@ -28,7 +28,7 @@ jobs:
             # The configuration file application.properties should be here:
 
             VIRTUAL_ENV=/home/ubuntu/app/venv
-            Environment=PATH=$VIRTUAL_ENV/bin:$PATH;SECRET_KEY=${{ secrets.SECRET_KEY }}
+            Environment="PATH=$VIRTUAL_ENV/bin:$PATH" "SECRET_KEY=${{ secrets.SECRET_KEY }}"
             WorkingDirectory=/home/ubuntu/app/dash-leftlet/
 
             #path to executable. 

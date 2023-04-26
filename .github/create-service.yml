@@ -1,0 +1,47 @@
+name: Create Service
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: open-pix
+    steps:
+      - name: creating app service
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: 177.93.130.233
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          command_timeout: 2m
+          script: |
+            mkdir -p /home/ubuntu/app/data-saude/
+            cd /home/ubuntu/app/data-saude/
+            cat <<EOF > datasaude.service
+            [Unit]
+            Description=datasaude Service
+            [Service]
+            User=ubuntu
+            # The configuration file application.properties should be here:
+
+            #change this to your workspace
+            WorkingDirectory=/home/ubuntu/app/data-saude
+
+            #path to executable. 
+            ExecStart=gunicorn dash_leaftetjs.wsgi
+
+            SuccessExitStatus=143
+            TimeoutStopSec=10
+            Restart=on-failure
+            RestartSec=5
+
+            [Install]
+            WantedBy=multi-user.target
+            EOF
+            sudo cp datasaude.service /etc/systemd/system/datasaude.service
+            sudo systemctl daemon-reload
+            sudo systemctl enable datasaude.service
+            echo "servico criado com sucesso!"

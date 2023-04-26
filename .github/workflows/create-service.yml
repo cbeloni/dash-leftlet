@@ -32,7 +32,7 @@ jobs:
             WorkingDirectory=/home/ubuntu/app/dash-leftlet/
 
             #path to executable. 
-            ExecStart=/home/ubuntu/app/venv/bin/gunicorn dash_leaftetjs.wsgi --env SECRET_KEY=´${{ secrets.SECRET_KEY }}
+            ExecStart=/home/ubuntu/app/venv/bin/gunicorn dash_leaftetjs.wsgi --env SECRET_KEY="${{ secrets.SECRET_KEY }}"
 
             SuccessExitStatus=143
             TimeoutStopSec=10

@@ -7,7 +7,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     environment:
-      name: open-pix
+      name: data-saude
     steps:
       - name: creating app service
         uses: appleboy/ssh-action@v0.1.7

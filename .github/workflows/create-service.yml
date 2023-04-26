@@ -31,7 +31,7 @@ jobs:
             WorkingDirectory=/home/ubuntu/app/data-saude
 
             #path to executable. 
-            ExecStart=gunicorn dash_leaftetjs.wsgi
+            ExecStart=/home/ubuntu/app/venv/bin/gunicorn dash_leaftetjs.wsgi
 
             SuccessExitStatus=143
             TimeoutStopSec=10

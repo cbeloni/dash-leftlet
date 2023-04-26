@@ -28,11 +28,11 @@ jobs:
             # The configuration file application.properties should be here:
 
             VIRTUAL_ENV=/home/ubuntu/app/venv
-            Environment=PATH=$VIRTUAL_ENV/bin:$PATH
+            Environment=PATH=$VIRTUAL_ENV/bin:$PATH SECRET_KEY="${{ secrets.SECRET_KEY }}"
             WorkingDirectory=/home/ubuntu/app/dash-leftlet/
 
             #path to executable. 
-            ExecStart=/home/ubuntu/app/venv/bin/gunicorn dash_leaftetjs.wsgi --env SECRET_KEY="${{ secrets.SECRET_KEY }}"
+            ExecStart=/home/ubuntu/app/venv/bin/gunicorn dash_leaftetjs.wsgi
 
             SuccessExitStatus=143
             TimeoutStopSec=10

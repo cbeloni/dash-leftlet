@@ -26,8 +26,12 @@ jobs:
             echo "desligando app"
             sudo systemctl stop datasaude
             echo "Clone repositório"
-            [ -d bebe-safe-fraldas ] && rm -rf dash-leftlet
+            [ -d dash-leftlet ] && rm -rf dash-leftlet
             git clone https://${{ secrets.GIT_USER }}:${{ secrets.GIT_TOKEN }}@github.com/cbeloni/dash-leftlet.git
+            echo "Criando .env"
+            cat <<EOF > dash-leftlet/.env
+              SECRET_KEY= '${{ secrets.SECRET_KEY }}'
+            EOF
             echo "Buildando projeto"
             source venv/bin/activate
             pip install -r dash-leftlet/requirements.txt
@@ -40,5 +44,7 @@ jobs:
           port: 22
           command_timeout: 1m
           script: |
+            echo "setando variable"
+            export SECRET_KEY="${{ secrets.SECRET_KEY }}"
             sudo systemctl start datasaude
             echo "Aplicação em execução"

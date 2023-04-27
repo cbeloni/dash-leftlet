@@ -41,6 +41,6 @@ jobs:
           command_timeout: 1m
           script: |
             echo "setando variable"
-            export SECRET_KEY=${{ secrets.SECRET_KEY }}
+            export SECRET_KEY="${{ secrets.SECRET_KEY }}"
             sudo systemctl start datasaude
             echo "Aplicação em execução"

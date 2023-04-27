@@ -31,6 +31,12 @@ jobs:
             echo "Criando .env"
             cat <<EOF > dash-leftlet/.env
               SECRET_KEY= '${{ secrets.SECRET_KEY }}'
+              DB_HOST='${{ secrets.DB_HOST }}'
+              DB_PORT='${{ secrets.DB_PORT }}'
+              DB_NAME='${{ secrets.DB_NAME }}'
+              DB_USER='${{ secrets.DB_USER }}'
+              DB_PASSWORD='${{ secrets.DB_PASSWORD }}'
+              MYSQL_ATTR_SSL_CA='${{ secrets.MYSQL_ATTR_SSL_CA }}'
             EOF
             echo "Buildando projeto"
             source venv/bin/activate

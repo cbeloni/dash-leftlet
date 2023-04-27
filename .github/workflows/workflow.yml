@@ -26,7 +26,7 @@ jobs:
             echo "desligando app"
             sudo systemctl stop datasaude
             echo "Clone repositório"
-            [ -d bebe-safe-fraldas ] && rm -rf dash-leftlet
+            [ -d dash-leftlet ] && rm -rf dash-leftlet
             git clone https://${{ secrets.GIT_USER }}:${{ secrets.GIT_TOKEN }}@github.com/cbeloni/dash-leftlet.git
             echo "Buildando projeto"
             source venv/bin/activate

@@ -3,6 +3,7 @@ from cachetools import cached, LRUCache, TTLCache
 import json
 from datetime import datetime
 from ..models import QualidadeAr, QualidadeArDetalhes
+from asgiref.sync import sync_to_async
 
 def listar_todos():
     lista_qualidade_ar2 = _get_cetesb()
@@ -37,7 +38,7 @@ def _get_cetesb():
                                                 indice=indice,
                                                 poluente=poluente,
                                                 municipio=municipio)
-        qualidade_ar.save()
+        sync_to_async(qualidade_ar.save())
         lista_qualidade_ar.append(qualidade_ar)
 
 
@@ -67,7 +68,7 @@ def _atribute_detalhes(data, nome):
         valueIndice = data[keys[i]]
         valueData = datetime.fromtimestamp(data[keys[i + 1]] / 1000).strftime("%Y-%m-%d %Hh")
         qualiadade_ar_detalhes = QualidadeArDetalhes(indice=valueIndice, data=valueData, nome=nome)
-        qualiadade_ar_detalhes.save()
+        sync_to_async(qualiadade_ar_detalhes.save())
         lista_detalhes.append(qualiadade_ar_detalhes)
     return lista_detalhes
 

@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import date
 
 class QualidadeAr(models.Model):
     class Meta:

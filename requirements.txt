@@ -10,3 +10,4 @@ numpy
 plotly
 djangorestframework
 mysqlclient
+apscheduler

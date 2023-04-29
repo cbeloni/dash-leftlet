@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 class QualidadeAr(models.Model):
     class Meta:
@@ -13,6 +14,7 @@ class QualidadeAr(models.Model):
     indice = models.IntegerField(default=0, null=True)
     poluente = models.CharField(max_length=10, null=True)
     municipio = models.CharField(max_length=255, null=True)
+    data_atual = models.DateTimeField(default=now, blank=True)
 
     def __str__(self):
         return str(vars(self))

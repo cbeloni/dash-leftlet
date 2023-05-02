@@ -7,5 +7,5 @@ _consulta = cetesb.Consulta(True)
 def start():
     scheduler = BackgroundScheduler()
     scheduler.add_job(_consulta.principal, 'interval', minutes=60)
-    scheduler.add_job(_consulta.detalhes, 'interval', minutes=60)
+    # scheduler.add_job(_consulta.detalhes, 'interval', minutes=60)
     scheduler.start()

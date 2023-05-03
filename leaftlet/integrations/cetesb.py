@@ -18,7 +18,8 @@ class Consulta:
         lista_qualidade_ar = []
         for feature in data['features']:
             nome = feature['attributes']['Nome']
-            data = feature['attributes']['DATA'][:16]
+            data_split = feature['attributes']['DATA'].split(':')
+            data = data_split[0] + ':' + data_split[1]
             situacao_rede = feature['attributes']['Situacao_Rede']
             qualidade = feature['attributes']['Qualidade'] or 'Não coletado'
             tipo_rede = feature['attributes']['Tipo_Rede']

@@ -38,7 +38,7 @@ class Consulta:
                                                     poluente=poluente,
                                                     municipio=municipio)
             if self.save_database:
-                sync_to_async(qualidade_ar.save())
+                qualidade_ar.save()
 
             lista_qualidade_ar.append(qualidade_ar)
         return lista_qualidade_ar

@@ -1,12 +1,7 @@
-# base image
-FROM python:3.10
-ENV DockerHOME=/home/app/webapp
-RUN mkdir -p $DockerHOME
-WORKDIR $DockerHOME
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-RUN pip install --upgrade pip
-COPY . $DockerHOME
+FROM python:3
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+WORKDIR /code
+COPY requirements.txt /code/
 RUN pip install -r requirements.txt
-EXPOSE 8000
-CMD python manage.py runserver
+COPY . /code/

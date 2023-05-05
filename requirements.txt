@@ -10,4 +10,5 @@ numpy
 plotly
 djangorestframework
 mysqlclient
+mysql-connector-python
 apscheduler

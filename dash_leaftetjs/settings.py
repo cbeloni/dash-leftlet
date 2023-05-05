@@ -103,6 +103,8 @@ DATABASES = {
     }
 }
 
+if os.environ.get('MYSQL_ATTR_SSL_CA') is None:
+    DATABASES['default'].pop('OPTIONS')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

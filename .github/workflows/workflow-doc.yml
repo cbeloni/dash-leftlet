@@ -38,7 +38,7 @@ jobs:
             EOF
             echo "Buildando projeto"
             cd dash-leftlet
-            docker-compose up -d --no-deps --build
+            docker-compose build
       - name: starting app
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -49,5 +49,6 @@ jobs:
           command_timeout: 1m
           script: |
             echo "Iniciando aplicação"
+            cd ~/app/dash-leftlet
             docker-compose up -d
             echo "Aplicação em execução"

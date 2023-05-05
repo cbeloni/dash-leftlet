@@ -12,3 +12,5 @@ djangorestframework
 mysqlclient
 mysql-connector-python
 apscheduler
+pytest
+mixer

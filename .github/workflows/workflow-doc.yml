@@ -1,4 +1,4 @@
-name: CI/CD counter app
+name: Deploy with docker
 
 on:
   push:
@@ -6,37 +6,48 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
-
+    environment:
+      name: datasaude
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Build the docker_compose
-      run: docker-compose up -d --build
-
-    - name: Buid the application
-      run: docker-compose exec -T web python manage.py test
-
-  Deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Deploy in EC2
-        env:
-            PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            HOSTNAME : 177.93.131.216
-            USER_NAME : ubuntu
-
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-          
-            cd /home/ubuntu/web &&
-            git checkout main &&
-            git fetch --all &&
-            git reset --hard origin/master &&
-            git pull origin master &&
-            docker-compose -f docker-compose.yml up -d --build
+      - name: building app
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: 177.93.131.216
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          command_timeout: 5m
+          script: |
+            echo "Criando diretório"
+            mkdir -p ~/app
+            cd ~/app/
+            echo "Clone repositório"
+            [ -d dash-leftlet ] && rm -rf dash-leftlet
+            git clone https://${{ secrets.GIT_USER }}:${{ secrets.GIT_TOKEN }}@github.com/cbeloni/dash-leftlet.git
+            echo "Criando .env"
+            cat <<EOF > dash-leftlet/.env
+              SECRET_KEY= '${{ secrets.SECRET_KEY }}'
+              DB_HOST='${{ secrets.DB_HOST2 }}'
+              DB_PORT='${{ secrets.DB_PORT2 }}'
+              DB_NAME='${{ secrets.DB_NAME2 }}'
+              DB_USER='${{ secrets.DB_USER2 }}'
+              DB_PASSWORD='${{ secrets.DB_PASSWORD2 }}'
+              DB_ROOT_PASSWORD='${{ secrets.DB_ROOT_PASSWORD2 }}'
+            EOF
+            echo "Buildando projeto"
+            cd dash-leftlet
+            docker-compose up -d --no-deps --build
+      - name: starting app
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: 177.93.130.233
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          command_timeout: 1m
+          script: |
+            echo "Iniciando aplicação"
+            docker-compose up -d
+            echo "Aplicação em execução"

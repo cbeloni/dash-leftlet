@@ -27,7 +27,7 @@ jobs:
             sudo systemctl stop datasaude
             echo "Clone repositório"
             [ -d dash-leftlet ] && rm -rf dash-leftlet
-            git clone https://${{ secrets.GIT_USER }}:${{ secrets.GIT_TOKEN }}@github.com/cbeloni/dash-leftlet.git
+            git checkout main
             echo "Criando .env"
             cat <<EOF > dash-leftlet/.env
               SECRET_KEY= '${{ secrets.SECRET_KEY }}'

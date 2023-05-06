@@ -21,5 +21,7 @@ from leaftlet import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home, name="home"),
-    path("dashboard", views.dash, name="dash")
+    path('datasaude', views.home, name="home"),
+    path("dashboard", views.dash, name="dash"),
+    path("dashboard/dashboard", views.dash, name="dash")
 ]

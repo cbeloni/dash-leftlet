@@ -23,5 +23,5 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('datasaude', views.home, name="home"),
     path("dashboard", views.dash, name="dash"),
-    path("dashboard/dashboard", views.dash, name="dash")
+    path("datasaude/dashboard", views.dash, name="dash")
 ]

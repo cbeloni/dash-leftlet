@@ -1,0 +1,81 @@
+<script lang="js">
+    var detalhe_ativo = false
+    var municipios_selecionados = new Set();
+
+    function clickEventCard(municipio) {
+        console.log('selecionando municipio:', municipio);
+        var check_detalhes = document.getElementById("check_detalhes_" + municipio);
+        console.log('true: ', Array.from(municipios_selecionados).includes(municipio));
+        Array.from(municipios_selecionados).includes(municipio) ? municipios_selecionados.delete(municipio) : municipios_selecionados.add(municipio);
+        check_detalhes.checked = !check_detalhes.checked
+        console.log('municipios_selecionados: ', municipios_selecionados);
+
+        let datasetsFiltrado = datasets.filter(dataset => Array.from(municipios_selecionados).includes(dataset.label));
+        chart.data.datasets = datasetsFiltrado;
+        chart.update();
+        const grafico_detalhes = document.getElementById('grafico_detalhes');
+        console.log('datasets:', datasets);
+        if (Array.from(nomes_disponiveis).some(item => item === municipio)) {
+            grafico_detalhes.scrollIntoView({
+                behavior: 'smooth'
+            })
+        } else {
+            alert('Município sem detalhes no momento, tente novamente mais tarde');
+            check_detalhes.checked = false
+        }
+    }
+
+    const ctx = document.getElementById('chart-bars');
+    var datasets = []
+    var nomes_disponiveis = new Set();
+    {% for detalhe_geral in detalhes %}
+        var nome = ''
+        var labels = []
+        var lista_indices = []
+            {% for d in detalhe_geral %}
+                nome = '{{d.nome}}'
+                lista_indices.push('{{d.indice}}')
+                labels.push('{{d.data}}');
+                nomes_disponiveis.add(nome);
+            {% endfor %}
+        var random = Math.floor(Math.random() * 256);
+        var random2 = Math.floor(Math.random() * 256);
+        var random3 = Math.floor(Math.random() * 256);
+        var customDataset = {
+            label: nome,
+            data: lista_indices,
+            fill: false,
+            borderColor: 'rgb(' + random + ',' + random2 + ', ' + random3 + ')',
+            cubicInterpolationMode: 'monotone',
+            tension: 0.4
+        }
+        datasets.push(customDataset)
+    {% endfor %}
+
+    let datasetsFiltrado = datasets.filter(dataset => Array.from(municipios_selecionados).includes(dataset.label));
+
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: datasetsFiltrado
+        },
+        interaction: {
+            intersect: false,
+        },
+        options: {
+            scales: {
+                y: {
+                    suggestedMin: 0,
+                    suggestedMax: 5,
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    //gráficos sample
+    $(document).ready(function() {
+        demo.initChartist();
+    })
+  </script>

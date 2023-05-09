@@ -42,7 +42,7 @@ jobs:
       - name: starting app
         uses: appleboy/ssh-action@v0.1.7
         with:
-          host: 177.93.130.233
+          host: 177.93.131.216
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
@@ -50,5 +50,6 @@ jobs:
           script: |
             echo "Iniciando aplicação"
             cd ~/app/dash-leftlet
+            docker-compose down
             docker-compose up -d
             echo "Aplicação em execução"

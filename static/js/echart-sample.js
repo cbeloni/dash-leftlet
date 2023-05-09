@@ -3,9 +3,6 @@ var myChart = echarts.init(chartDom);
 var option;
 
 option = {
-  title: {
-    text: 'Stacked Line'
-  },
   tooltip: {
     trigger: 'axis'
   },

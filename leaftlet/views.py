@@ -25,5 +25,8 @@ def dash(request):
 
     return render(request, 'dash.html', contexto)
 
+def indicadores(request):
+    return render(request, 'indicadores.html')
+
 if __name__ == '__main__':
     print('main')

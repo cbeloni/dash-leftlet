@@ -5,55 +5,7 @@
 {% endblock css %}
 {% block content %}
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-md-4">
-            <div class="card">
 
-                <div class="header">
-                    <h4 class="title">Email Statistics</h4>
-                    <p class="category">Last Campaign Performance</p>
-                </div>
-                <div class="content">
-                    <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
-                    <div class="footer">
-                        <div class="legend">
-                            <i class="fa fa-circle text-info"></i> Open
-                            <i class="fa fa-circle text-danger"></i> Bounce
-                            <i class="fa fa-circle text-warning"></i> Unsubscribe
-                        </div>
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-8">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Users Behavior</h4>
-                    <p class="category">24 Hours performance</p>
-                </div>
-                <div class="content">
-                    <div id="chartHours" class="ct-chart"></div>
-                    <div class="footer">
-                        <div class="legend">
-                            <i class="fa fa-circle text-info"></i> Open
-                            <i class="fa fa-circle text-danger"></i> Click
-                            <i class="fa fa-circle text-warning"></i> Click Second Time
-                        </div>
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
       <div class="row">
         {% for ar in lista_qualidade_ar %}
           <div class="col-xl-3 col-sm-6 mb-xl-2 mb-4">
@@ -90,31 +42,27 @@
         </div>
         {% endfor %}
       </div>
-      <div class="row mt-1" id="grafico_detalhes">
-        <div class="col-lg-12 mb-lg-0 mb-4">
-          <div class="card z-index-2">
-            <div class="card-body p-3">
-              <h6>
-                Índice de Monóxido de carbono (CO)
-              </h6>
-              <div class="border-radius-lg py-3 pe-1 mb-3">
-                <div class="chart">
-                  <canvas id="chart-bars" class="chart-canvas" height="100"></canvas>
+      <div class="row">
+        <div class="col-md-8" id="grafico_detalhes">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Histórico poluentes</h4>
                 </div>
-              </div>
-
+                <div class="content">
+                    <canvas id="chart-bars" class="chart-canvas"></canvas>
+                    <div class="footer">
+                        <div class="stats">
+                            <i class="fa fa-history"></i> Updated X minutes ago
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
     </div>
 {% endblock content %}
 
 {% block scripts %}
   <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
-  <script src="./static/js/chartist.min.js"></script>
-  <script src="./static/js/demo.js"></script>
-
   {% include 'dash_script_detalhes.html' %}
-
 {% endblock scripts %}

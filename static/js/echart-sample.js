@@ -32,6 +32,7 @@ option = {
   },
   xAxis: {
     type: 'category',
+    boundaryGap: false,
     data: listaDatas
   },
   yAxis: {

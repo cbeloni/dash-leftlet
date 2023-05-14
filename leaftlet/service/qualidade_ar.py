@@ -16,7 +16,7 @@ def listar_detalhes():
 def _get_cetesb():
     return _consulta.principal()
 
-@cached(cache=TTLCache(maxsize=1024, ttl=3600))
+# @cached(cache=TTLCache(maxsize=1024, ttl=3600))
 def _listar_detalhes():
     return _consulta.detalhes()
 

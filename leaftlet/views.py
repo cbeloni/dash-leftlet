@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from leaftlet.service.qualidade_ar import listar_todos, listar_detalhes
+from leaftlet.service.indicadores import prepara_grafico
 import json
 
 def home(request):
@@ -26,7 +27,11 @@ def dash(request):
     return render(request, 'dash.html', contexto)
 
 def indicadores(request):
-    return render(request, 'indicadores.html')
+    lista_datas, lista_series, lista_municipios = prepara_grafico()
+    contexto = {"lista_datas": json.dumps(lista_datas),
+                "lista_series": json.dumps(lista_series),
+                "lista_municipios": json.dumps(lista_municipios)}
+    return render(request, 'indicadores.html', contexto)
 
 if __name__ == '__main__':
     print('main')

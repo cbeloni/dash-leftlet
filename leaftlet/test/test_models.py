@@ -4,7 +4,6 @@ from django.test import TestCase, Client
 
 pytestmark = pytest.mark.django_db
 
-
 class TestQualidadeAr(TestCase):
     def teste_deve_criar_qualidade_ar(self):
         qualidade_ar = mixer.blend("leaftlet.QualidadeAr")

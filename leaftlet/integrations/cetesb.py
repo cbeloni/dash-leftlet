@@ -1,6 +1,6 @@
 import requests
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from ..models import QualidadeAr, QualidadeArDetalhes
 from asgiref.sync import sync_to_async
 
@@ -57,6 +57,16 @@ class Consulta:
             detalhes = self._atribute_detalhes(f['attributes'], nome)
             lista_completa_detalhes.append(detalhes)
         return lista_completa_detalhes
+
+    def principal_repository(self):
+        data_atual = datetime.now()
+        data_8h_atras = data_atual- timedelta(hours=8)
+        registros = QualidadeAr.objects.filter(data_atual__range=(data_8h_atras, data_atual)).order_by('nome', 'data_atual')
+        return registros
+
+    def ultimos_registros(self):
+        registros = QualidadeAr.objects.all().order_by('-id', 'nome', 'data_atual')[:120]
+        return registros
 
     def _atribute_detalhes(self, data, nome):
         lista_detalhes = []

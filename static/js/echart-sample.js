@@ -32,13 +32,13 @@ option = {
   },
   xAxis: {
     type: 'category',
-    boundaryGap: false,
     data: listaDatas
   },
   yAxis: {
     type: 'value'
   },
-  series: listaSeries
+  series: listaSeries,
+
 };
 
 option && myChart.setOption(option);

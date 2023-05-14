@@ -16,7 +16,7 @@ def prepara_grafico():
 
     for municipio in lista_municipios:
         lista_indices = [detalhe.indice for detalhe in detalhes if detalhe.municipio == municipio]
-        serie = Serie(name=municipio, type='line', data=lista_indices)
+        serie = Serie(name=municipio, type='line', stack='', data=lista_indices)
         lista_series.append(serie.to_dict())
 
     return lista_datas, lista_series, lista_municipios

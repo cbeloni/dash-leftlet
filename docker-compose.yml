@@ -16,7 +16,6 @@ services:
     build: .
     command: >
       bash -c "python manage.py migrate &&
-      python manage.py test && 
       gunicorn dash_leaftetjs.wsgi"
     volumes:
       - .:/code

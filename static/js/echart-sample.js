@@ -5,7 +5,6 @@ var option;
 var listaMunicipios = JSON.parse(document.getElementById('lista_municipios').innerText);
 var listaDatas = JSON.parse(document.getElementById('lista_datas').innerText);
 var listaSeries = JSON.parse(document.getElementById('lista_series').innerText);
-console.log("listaMunicipios", listaMunicipios)
 
 var seriesState = {
   enabled: false,  // Indica se a série está habilitada ou desabilitada
@@ -43,3 +42,10 @@ option = {
 };
 
 option && myChart.setOption(option);
+myChart.dispatchAction({
+  type: 'legendToggleSelect',
+  name: 'SAO PAULO'
+});
+myChart.dispatchAction({
+    type: 'legendInverseSelect'
+})

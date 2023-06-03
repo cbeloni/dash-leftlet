@@ -33,5 +33,9 @@ def indicadores(request):
                 "lista_municipios": json.dumps(lista_municipios)}
     return render(request, 'indicadores.html', contexto)
 
+def tabelas(request):
+    contexto = {}
+    return render(request, 'tabelas.html', contexto)
+
 if __name__ == '__main__':
     print('main')

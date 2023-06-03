@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link href="./static/css/tabelas-custom.css" rel="stylesheet" />
+{% endblock css %}
+{% block content %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>João</td>
+            <td>joao@example.com</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Maria</td>
+            <td>maria@example.com</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Carlos</td>
+            <td>carlos@example.com</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Ana</td>
+            <td>ana@example.com</td>
+          </tr>
+        </tbody>
+      </table>
+{% endblock content %}
+{% block scripts %}
+{% endblock scripts %}

@@ -125,7 +125,6 @@
                     xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                   },
                   success: function(response) {
-                    console.log('Sucesso ao atualizar valor: ', response)
                     $('#lista_dados_tabela').text(response);
                     qualidade_ar_tabela.clear().rows.add(getDadosTabelaCetesb()).draw();
                   },

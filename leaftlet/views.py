@@ -1,5 +1,6 @@
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
-from leaftlet.service.qualidade_ar import listar_todos, listar_detalhes
+from leaftlet.service.qualidade_ar import listar_todos, listar_detalhes, listar_principal_filter_nome
 from leaftlet.service.indicadores import prepara_grafico
 import json
 
@@ -34,8 +35,28 @@ def indicadores(request):
     return render(request, 'indicadores.html', contexto)
 
 def tabelas(request):
-    contexto = {}
+    nome = "Capão Redondo"
+    if request.GET.get('valor') is not None:
+        nome = request.GET.get('valor')
+        contexto = get_qualidade_ar(nome)
+        return HttpResponse(contexto.get('qualidade_ar_todos'))
+
+    contexto = get_qualidade_ar(nome)
     return render(request, 'tabelas.html', contexto)
+
+
+def get_qualidade_ar(nome):
+    qualidade_ar_filtrado = listar_principal_filter_nome(nome)
+    qualidade_ar_filtrado_list = [q.to_dict() for q in qualidade_ar_filtrado]
+    contexto = {"qualidade_ar_todos": json.dumps(qualidade_ar_filtrado_list)}
+    return contexto
+
+
+def default_handler(obj):
+    try:
+        return obj.to_dict()
+    except AttributeError:
+        return str(obj)
 
 if __name__ == '__main__':
     print('main')

@@ -9,6 +9,9 @@ _consulta: Consulta = cetesb.Consulta(save_database=False)
 def listar_todos():
     return _get_cetesb()
 
+def listar_principal_filter_nome(nome):
+    return _consulta.qualidade_ar_filter_nome(nome)
+
 def listar_detalhes():
     return _listar_detalhes()
 

@@ -7,36 +7,135 @@
 {% endblock css %}
 {% block content %}
     <div class="container-fluid py-4">
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="content">
-                        <table id="example" class="display" style="width:100%">
-
+                        <table id="qualidade_ar" class="display" style="width:100%">
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="content">
+                        <table id="example" class="display" style="width:100%">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
 
-
-    </div>
-
-
+<div id="select-toolbar" class="col-sm-12 p-4">
+    <label for="select-toolbar-itens"> Nome local</label>
+    <select id="select-toolbar-itens" class="select-toolbar">
+        <option>Capão Redondo</option>
+        <option>Carapicuíba</option>
+        <option>Cerqueira César</option>
+        <option>Cid.Universitária-USP-Ipen</option>
+        <option>Congonhas</option>
+        <option>Cubatão-Centro</option>
+        <option>Diadema</option>
+        <option>Grajaú-Parelheiros</option>
+        <option>Guarulhos-Paço Municipal</option>
+        <option>Guarulhos-Pimentas</option>
+        <option>Ibirapuera</option>
+        <option>Interlagos</option>
+        <option>Itaim Paulista</option>
+        <option>Itaquera</option>
+        <option>Marg.Tietê-Pte Remédios</option>
+        <option>Mauá</option>
+        <option>Mooca</option>
+        <option>N.Senhora do Ó</option>
+        <option>Osasco</option>
+        <option>Parque D.Pedro II</option>
+        <option>Perus</option>
+        <option>Pico do Jaraguá</option>
+        <option>Pinheiros</option>
+        <option>S.André-Capuava</option>
+        <option>S.Bernardo-Centro</option>
+        <option>S.Bernardo-Paulicéia</option>
+        <option>Santana</option>
+        <option>Santo Amaro</option>
+        <option>São Caetano do Sul</option>
+        <option>Taboão da Serra</option>
+    </select>
+</div>
+<div class="row" style="display: none">
+    <span id="lista_dados_tabela">{{ qualidade_ar_todos }}</span>
+</div>
 {% endblock content %}
 {% block scripts %}
     <script src="./static/js/table-data.js" type="text/javascript"></script>
+    <script src="./static/js/table-data-cetesb.js" type="text/javascript"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script lang="js">
-        console.log('tableData: ', tableData);
         $(document).ready(function () {
+            var selectToolbar = $('#select-toolbar');
             $('#example').DataTable({...tableData,
                                      "scrollX": true,
                                      "responsive": true,
                                      "paging": true,
                                      "pageLength": 10});
+            const getDadosTabelaCetesb = () => {
+                return JSON.parse(document.getElementById('lista_dados_tabela').innerText)
+            }
+
+            var qualidade_ar_tabela = $('#qualidade_ar').DataTable({ "data": getDadosTabelaCetesb(),
+                            "columns": [
+                                            { data: "nome", title: 'nome'},
+                                            { data: 'situacao_rede', title: 'situacao_rede'},
+                                            { data: 'tipo_rede', title: 'tipo_rede'},
+                                            { data: 'data', title: 'data'},
+                                            { data: 'qualidade', title: 'qualidade'},
+                                            { data: 'endereco', title: 'endereco'},
+                                            { data: 'indice', title: 'indice'},
+                                            { data: 'poluente', title: 'poluente'},
+                                            { data: 'municipio', title: 'municipio'},
+                                            { data: 'data_atual', title: 'data_atual'},
+                                            { data: 'data', title: 'data'}
+                                        ],
+                             "scrollX": true,
+                             "responsive": true,
+                             "paging": true,
+                             "pageLength": 10,
+                              initComplete: function(settings, json) {
+                                    console.log('A tabela foi completamente inicializada.',settings, json);
+                              },
+                              "dom": '<"toolbar"> lfrtip'
+            });
+            $('div.toolbar').html(selectToolbar);
+
+
+
+            $('#select-toolbar-itens').change(function() {
+                var valorSelecionado = $(this).val();
+                var url = '{% url "tabelas" %}';
+                $.ajax({
+                  url: url,
+                  type: 'GET',
+                  data: {
+                    'valor': valorSelecionado
+                  },
+                  beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                  },
+                  success: function(response) {
+                    console.log('Sucesso ao atualizar valor: ', response)
+                    $('#lista_dados_tabela').text(response);
+                    qualidade_ar_tabela.clear().rows.add(getDadosTabelaCetesb()).draw();
+                  },
+                  error: function(xhr, status, error) {
+                    console.log('Erro ao atualizar valor:', error);
+                  }
+                });
+              });
+
         });
+
     </script>
 {% endblock scripts %}

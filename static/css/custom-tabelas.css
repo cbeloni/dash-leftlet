@@ -2,3 +2,34 @@
     color: #000000;
     font-size: 14px;
 }
+.toolbar {
+    float: left;
+}
+.select-toolbar {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    padding: 4px;
+    margin-right: 20px;
+}
+
+#example_length {
+    padding: 1.5rem;
+}
+
+@media screen and (min-width: 992px) {
+    #example_filter {
+        padding: 1.5rem ;
+    }
+}
+
+#qualidade_ar_length {
+    padding: 1.5rem;
+}
+
+@media screen and (min-width: 992px) {
+    #qualidade_ar_filter {
+        padding: 1.5rem ;
+    }
+}

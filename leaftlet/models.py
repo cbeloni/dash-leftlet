@@ -16,6 +16,20 @@ class QualidadeAr(models.Model):
     municipio = models.CharField(max_length=255, null=True)
     data_atual = models.DateTimeField(default=now, blank=True)
 
+    def to_dict(self):
+        return {
+            "nome": self.nome,
+            "situacao_rede": self.situacao_rede,
+            "tipo_rede": self.tipo_rede,
+            "data": self.data,
+            "qualidade": self.qualidade,
+            "endereco": self.endereco,
+            "indice": self.indice,
+            "poluente": self.poluente,
+            "municipio": self.municipio,
+            "data_atual": self.data_atual.isoformat() if self.data_atual else None
+        }
+
     def __str__(self):
         return str(vars(self))
 

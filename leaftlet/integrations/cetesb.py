@@ -1,6 +1,9 @@
 import requests
 import json
 from datetime import datetime, timedelta
+
+from django.http import JsonResponse
+
 from ..models import QualidadeAr, QualidadeArDetalhes
 from asgiref.sync import sync_to_async
 
@@ -63,6 +66,10 @@ class Consulta:
         data_8h_atras = data_atual- timedelta(hours=8)
         registros = QualidadeAr.objects.filter(data_atual__range=(data_8h_atras, data_atual)).order_by('nome', 'data_atual')
         return registros
+
+    def qualidade_ar_filter_nome(self, nome):
+        registros = QualidadeAr.objects.filter(nome=nome).order_by('nome', '-data_atual')
+        return list(registros)
 
     def ultimos_registros(self):
         registros = QualidadeAr.objects.all().order_by('-id', 'nome', 'data_atual')[:120]
